@@ -26,33 +26,30 @@ def loadDataset(trainPath, testPath):
     ])
 
     # Load all of the images, transforming them
-    full_dataset = torchvision.datasets.ImageFolder(
+    trainDataset = torchvision.datasets.ImageFolder(
         root=trainPath,
         transform=transformation
     )
 
-    # Split into training (70% and testing (30%) datasets)
-    train_size = int(0.7 * len(full_dataset))
-    test_size = len(full_dataset) - train_size
-
-    # use torch.utils.data.random_split for training/test split
-    train_dataset, test_dataset = torch.utils.data.random_split(
-        full_dataset, [train_size, test_size])
+    testDataset = torchvision.datasets.ImageFolder(
+        root=testPath,
+        transform=transformation
+    )
 
     # define a loader for the training data we can iterate through in 50-image batches
-    train_loader = torch.utils.data.DataLoader(
-        train_dataset,
+    trainLoader = torch.utils.data.DataLoader(
+        trainDataset,
         batch_size=50,
         num_workers=0,
         shuffle=False
     )
 
     # define a loader for the testing data we can iterate through in 50-image batches
-    test_loader = torch.utils.data.DataLoader(
-        test_dataset,
+    testLoader = torch.utils.data.DataLoader(
+        testDataset,
         batch_size=50,
         num_workers=0,
         shuffle=False
     )
 
-    return train_loader, test_loader
+    return trainLoader, testLoader

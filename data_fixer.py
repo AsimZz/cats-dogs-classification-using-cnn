@@ -3,18 +3,11 @@ import shutil
 from PIL import Image
 from image_resize import resizedImage
 
-# train DATASET PATH
-trainingFolderPath = '../data/CATS_DOGS/train/'
-
-classes = sorted(os.listdir(trainingFolderPath))
-
-print(classes)
-
 
 def dataFixer(imagesFolderPath, size=(128, 128)):
     # Loop through each subfolder in the input folder
     print('Transforming images...')
-    for root, folders, files in os.walk(trainingFolderPath):
+    for root, folders, files in os.walk(imagesFolderPath):
         for subFolder in folders:
             print('processing folder ' + subFolder)
             # Create a matching subfolder in the output dir
